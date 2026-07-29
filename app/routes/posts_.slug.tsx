@@ -6,7 +6,7 @@
 // 代码高亮样式只在有正文的路由加载（从 root 下放，避免全站阻塞渲染的 CSS 带上它）
 import { Link } from "react-router";
 import { Icon } from "@/components/ui/icon";
-import { Giscus } from "@/components/giscus";
+
 import { jsonLd } from "../lib/json-ld";
 import { SITE_NAME, SITE_URL } from "../lib/site";
 // 先 import 再具名导出：`export { loader } from "..."` 是纯转发，不会把
@@ -207,7 +207,7 @@ export default function PostDetailRoute({ loaderData }: { loaderData: LoaderData
 
           {/* 评论区 */}
           <div id="comments" className="border border-border bg-card p-4 sm:p-6 scroll-mt-20">
-            <Giscus />
+    
           </div>
         </article>
 
