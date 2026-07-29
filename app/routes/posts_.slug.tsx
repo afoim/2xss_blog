@@ -14,7 +14,7 @@ import { SITE_NAME, SITE_URL } from "../lib/site";
 import { loader } from "./posts_.slug.server";
 export { loader };
 
-const POSTS_REPO = "https://github.com/afoim/af_blog-data";
+const POSTS_REPO = "https://github.com/afoim/af_blog";
 
 /**
  * 无 description 的文章（158 篇里有 2 篇）用标题兜底。
@@ -165,9 +165,9 @@ export default function PostDetailRoute({ loaderData }: { loaderData: LoaderData
                 raw-posts.2x.nz 重新拉一遍 markdown 再渲染 —— loader 早就把 html
                 算好了却被扔掉，结果博客正文（全站最重要的 SEO 内容）根本不在
                 SSR HTML 里，禁用 JS 时只剩标题。 */}
-            <MermaidContent
-              html={html}
+            <div
               className="prose prose-zinc dark:prose-invert max-w-none prose-pre:bg-[#1e1e2e] prose-code:before:content-none prose-code:after:content-none prose-img:rounded-xl prose-headings:scroll-mt-20"
+              dangerouslySetInnerHTML={{ __html: html }}
             />
 
             {/* GitHub 编辑链接 */}
