@@ -19,7 +19,7 @@ jobs:
       - run: pnpm install
       - run: pnpm build
       - name: Deploy
-        run: pnpm exec wrangler deploy
+        run: pnpm wrangler deploy
         env:
           CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
           CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
