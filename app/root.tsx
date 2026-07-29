@@ -1,4 +1,4 @@
-import "@/app/globals.css";
+import "./globals.css";
 // hljs.css **不在这里** import：代码高亮样式只有正文页用得上，放进 root 会把它
 // 打进全站唯一那份阻塞渲染的 CSS（首页/论坛列表白背 ~13KB 构建后体积）。
 // 已下放到 posts_.slug.tsx 与 forum.post.$id.tsx 两条真正渲染 markdown 的路由。

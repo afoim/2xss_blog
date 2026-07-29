@@ -4,17 +4,11 @@
  * 客户端组件：Giscus（评论）、ImageLightbox、PageViews 显示。
  */
 // 代码高亮样式只在有正文的路由加载（从 root 下放，避免全站阻塞渲染的 CSS 带上它）
-import "@/styles/hljs.css";
 import { Link } from "react-router";
 import { Icon } from "@/components/ui/icon";
-import { MermaidContent } from "@/components/mermaid-renderer";
 import { Giscus } from "@/components/giscus";
-import { ImageLightbox } from "@/components/image-lightbox";
-import { PostToc } from "@/components/post-toc";
-import { buildToc } from "../lib/build-toc";
 import { jsonLd } from "../lib/json-ld";
 import { SITE_NAME, SITE_URL } from "../lib/site";
-import { getPostBySlug } from "../lib/blog.server";
 // 先 import 再具名导出：`export { loader } from "..."` 是纯转发，不会把
 // loader 引入本模块作用域，下面 `typeof loader` 会 TS2304 找不到名字。
 import { loader } from "./posts_.slug.server";
@@ -67,7 +61,6 @@ export default function PostDetailRoute({ loaderData }: { loaderData: LoaderData
   const { meta: post, html, neighbors, pageviews } = loaderData;
   const url = `${SITE_URL}/posts/${post.slug}`;
   const image = post.image || `${SITE_URL}/files/img/official.png`;
-  const toc = buildToc(html);
   // 正文纯文本 —— articleBody 帮 Google 理解文章全文
   const articleBody = html.replace(/<[^>]*>/g, "").replace(/&[a-z]+;/g, " ").replace(/\s+/g, " ").trim();
   // 日期补时区：Google 要求 ISO 8601 含时区信息

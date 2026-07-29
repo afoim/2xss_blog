@@ -1,5 +1,5 @@
-@import '@fontsource-variable/geist';
-@import '@fontsource-variable/geist-mono';
+/* geist loaded via CDN */
+/* geist-mono loaded via CDN */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
