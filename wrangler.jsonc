@@ -3,7 +3,7 @@
   "compatibility_date": "2026-07-30",
   "account_id": "879bb5589ed7931a25942359acc50154",
   "assets": {
-    "directory": ".",
+    "directory": "./dist",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   },

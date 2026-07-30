@@ -5,8 +5,8 @@ name: Release
 # 分支职责：
 #   edit —— 源码 + 文章（默认分支）。日常写作、Pages CMS 的零碎提交都在这里，
 #           没有任何 CI 监听，随便提交。
-#   main —— 纯静态产物，仓库根目录即站点根目录，不含源码。
-#           静态 CDN（EdgeOne）直接取用发布，不需要在 CDN 侧构建。
+#   main —— 含 dist/ 构建产物 + wrangler.jsonc。
+#           Wrangler / Cloudflare Workers 通过 wrangler.jsonc 取 dist/ 发布。
 #
 # CDN 侧需配置为：分支 main、构建命令留空、输出目录为根目录。
 #
@@ -60,11 +60,15 @@ jobs:
           echo "文件数: $(find out -type f | wc -l)"
           echo "体积:   $(du -sh out | cut -f1)"
 
-      - name: 推送产物到 main
+      - name: 推送产物到 main（dist/ 子目录 + wrangler.jsonc）
         env:
           TOKEN: ${{ github.token }}
         run: |
-          cd out
+          WORKDIR="$(mktemp -d)"
+          cp -r out "$WORKDIR/dist"
+          cp wrangler.jsonc "$WORKDIR/"
+
+          cd "$WORKDIR"
           git init -q -b main
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -77,3 +81,4 @@ jobs:
           git push --force \
             "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
             HEAD:main
+          rm -rf "$WORKDIR"
