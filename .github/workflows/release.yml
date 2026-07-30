@@ -15,6 +15,14 @@ name: Release
 
 on:
   workflow_dispatch:
+    inputs:
+      # 必须声明：Pages CMS 侧边栏按钮触发时会无条件带上 payload 输入
+      #（见其 actions API 里的 createWorkflowDispatch 调用），
+      # 未声明的输入会被 GitHub 拒绝并返回 422 Unexpected inputs provided。
+      # 本 workflow 用不到它的内容。
+      payload:
+        description: Pages CMS 传入的上下文（未使用）
+        required: false
 
 jobs:
   mirror:
