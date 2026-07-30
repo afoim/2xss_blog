@@ -78,7 +78,7 @@ export function ReadMoreSection({
 
   return (
     <section className="border-t border-border p-0">
-      <div className="py-6 px-0 md:px-6 lg:p-10">
+      <div className="p-6 lg:p-10">
         <h2 className="text-2xl font-medium mb-8">相关阅读</h2>
 
         <div className="flex flex-col gap-8">
