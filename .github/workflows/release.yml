@@ -1,23 +1,23 @@
 name: Release
 
-# 发布：把 edit 分支快进到 main。
+# 发布：把 edit 分支强制覆盖到 main，让 main 的历史与 edit 完全一致。
 #
-# 日常写作（含 Pages CMS 上传图片产生的零碎提交）都落在 edit 分支上，
-# 没有任何 CI 监听它；点一次本 workflow，main 才前进一步，
-# 从而只触发一次构建部署。
+# 日常写作（含 Pages CMS 每上传一张图片就产生的零碎提交）都落在 edit 分支，
+# 没有任何 CI 监听它。点一次本 workflow，main 才被更新，
+# 从而只触发一次构建部署 —— 一次 push 只产生一次 workflow run，
+# 不论它携带多少提交。
 #
-# ⚠ 必须配置 RELEASE_TOKEN，否则下游构建不会被触发：
-#   GitHub 明确规定「用仓库自带的 GITHUB_TOKEN 推送不会创建新的 workflow run」，
+# ⚠ 需要配置 RELEASE_TOKEN，否则下游构建不会被触发：
+#   GitHub 规定「用仓库自带的 GITHUB_TOKEN 推送不会创建新的 workflow run」，
 #   所以拿默认 token 推 main 时，监听 push: main 的构建 workflow 会静默不执行。
-#   解决办法：建一个有 contents:write 权限的 PAT（细粒度 token 即可），
-#   存为仓库 secret RELEASE_TOKEN。没配时本 workflow 仍能快进 main，
-#   但需要你手动去点构建。
+#   解决办法：建一个有 contents:write 权限的细粒度 PAT，
+#   存为仓库 secret RELEASE_TOKEN。没配时 main 仍会被更新，但需手动触发构建。
 
 on:
   workflow_dispatch:
 
 jobs:
-  fast-forward:
+  mirror:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -25,18 +25,9 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: edit
+          # 浅克隆无法可靠地 push，取完整历史
           fetch-depth: 0
           token: ${{ secrets.RELEASE_TOKEN || github.token }}
 
-      - name: 显示将要发布的提交
-        run: |
-          git fetch origin main:refs/remotes/origin/main
-          echo "main 当前: $(git rev-parse --short origin/main)"
-          echo "edit 当前: $(git rev-parse --short HEAD)"
-          echo "本次发布包含的提交："
-          git log --oneline origin/main..HEAD
-
-      - name: 快进 main
-        # 不加 --force：万一 main 与 edit 分叉（例如误在 main 上提交过），
-        # 这里会直接失败而不是覆盖，需要人工确认后再处理
-        run: git push origin HEAD:main
+      - name: 用 edit 覆盖 main
+        run: git push --force origin HEAD:main
