@@ -56,8 +56,10 @@ content:
 
       - name: coverImage
         label: 封面图
-        type: string
-        description: 图床完整链接，如 https://raw-posts.2x.nz/img/xxx.webp ；留空则首页卡片显示渐变占位块
+        # image 字段带图片库选择器和上传按钮；存回 frontmatter 的是
+        # media.output 前缀的站内路径（/img/xxx.webp），正是站点期望的形式
+        type: image
+        description: 从图片库选择，或直接上传新图；留空则首页卡片显示渐变占位块
 
       - name: tags
         label: 标签
