@@ -66,7 +66,7 @@ export default function HomePage() {
           flickerChance={0.05}
         />
       </div>
-      <div className="py-6 px-0 md:px-6 border-b border-border flex flex-col gap-6 min-h-[250px] justify-center relative z-10">
+      <div className="p-6 border-b border-border flex flex-col gap-6 min-h-[250px] justify-center relative z-10">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col gap-2">
             <h1 className="font-medium text-4xl md:text-5xl tracking-tighter">
@@ -79,7 +79,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <div className="max-w-7xl mx-auto w-full px-0 md:px-4 lg:px-0">
+      <div className="max-w-7xl mx-auto w-full px-6 lg:px-0">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 relative overflow-hidden border-x border-border border-b">
           {sortedBlogs.map((blog) => {
             const date = new Date(blog.data.date);
