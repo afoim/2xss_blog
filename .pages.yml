@@ -8,9 +8,10 @@
 #   记得同时改这里和 source.config.ts 的 zod schema。
 
 media:
-  # 站内图片上传目录（public/ 下的内容会被原样发布到站点根）
-  input: public/uploads
-  output: /uploads
+  # 图片库：1275 张历史图片从 eleventy-blog-pagescms 的 img/ 迁过来，
+  # public/ 下的内容会被原样发布到站点根，所以站内路径就是 /img/<文件名>
+  input: public/img
+  output: /img
   categories: [image, video]
   # 上传时清理文件名，避免中文/空格进 URL
   rename: safe

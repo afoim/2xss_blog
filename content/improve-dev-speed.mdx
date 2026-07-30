@@ -4,7 +4,7 @@ date: '2026-04-19'
 description: 什么？我只想改一个字看看预览都要等1分钟？这是什么神人项目啊？！
 draft: false
 tags: []
-coverImage: https://raw-posts.2x.nz/img/improve-dev-speed-astro.png
+coverImage: /img/improve-dev-speed-astro.png
 ---
 ## 引言
 众所周知，目前我们用的是基于一个本来非常优雅的静态博客生成器 [Astro](https://docs.astro.build/zh-cn/getting-started/) 和一个本来非常优雅的博客主题 [Fuwari](https://github.com/saicaca/fuwari) 来制作的该网站
@@ -28,7 +28,7 @@ coverImage: https://raw-posts.2x.nz/img/improve-dev-speed-astro.png
 
 那么我们就需要使用 `--verbose` 标志，来事无巨细的获取开发服务器究竟被什么东西卡了这么久
 
-![423](https://raw-posts.2x.nz/img/improve-dev-speed-improve-dev-speed-6.png)
+![423](/img/improve-dev-speed-improve-dev-speed-6.png)
 
 显然，我们会发现 Astro 在 Vite 准备就绪后就开始加载schema了，最典型的就是图片，由于图片在 `/src/content/assets` 下，Astro会将其当作内容集合去处理，而我们的项目总共有 **1000+** 图片，这会导致所有图片都会走一遍Astro的处理，哪怕我们在 `astro.config.mjs` 声明了 [no-op 透传](https://docs.astro.build/zh-cn/guides/images/#%E9%85%8D%E7%BD%AE-no-op-%E9%80%8F%E4%BC%A0%E6%9C%8D%E5%8A%A1)
 ```js
@@ -67,14 +67,14 @@ export default defineConfig({
 
 之前，对于桌面端的用户，我们会使用流星背景。但实际测试发现由于流星是随机出现且同屏高达 **50个**，这会导致高达 **3000次/秒** 的布局重绘， 所以我们顺便将整个流星背景移除，仅保留一个有质感的静态渐变
 
-![](https://raw-posts.2x.nz/img/improve-dev-speed-improve-dev-speed-7.png)
+![](/img/improve-dev-speed-improve-dev-speed-7.png)
 
 最终，开发服务器的启动快如闪电！**仅需7秒** 
 
-![](https://raw-posts.2x.nz/img/improve-dev-speed-Kiro_NcMc9NkpG3.gif)
+![](/img/improve-dev-speed-Kiro_NcMc9NkpG3.gif)
 
 而之前...这也太慢了... **近乎1分钟** 
 
-![](https://raw-posts.2x.nz/img/improve-dev-speed-Kiro_tYIjKYtTlP.gif)
+![](/img/improve-dev-speed-Kiro_tYIjKYtTlP.gif)
 
 > 实际上并非这么简单

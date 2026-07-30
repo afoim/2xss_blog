@@ -4,7 +4,7 @@ date: '2026-01-16'
 description: EdgeOne和ESA都是非常好的免费国内CDN，常规用起来几乎一模一样，今天我们就来让他俩一决雌雄！
 draft: false
 tags: []
-coverImage: https://raw-posts.2x.nz/img/eovsesa-eovsesa.webp
+coverImage: /img/eovsesa-eovsesa.webp
 ---
 
 ## 前言
@@ -23,74 +23,74 @@ EdgeOne这个项目，特别是Page，在24年就已经初具雏形并且能够�
 
 而ESA大概率是从老的DCDN和云函数FC改过来的，控制台就已经露出鸡脚了。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-1.webp)
+![](/img/eovsesa-eovsesa-1.webp)
 
 ## 规则引擎与WAF
 
 ESA的很多东西直接是照抄Cloudflare的，比如：
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-3.webp)
+![](/img/eovsesa-eovsesa-3.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-2.webp)
+![](/img/eovsesa-eovsesa-2.webp)
 
 并且还将每条规则（嵌套子规则也算一条）全部砍了一刀，免费套餐仅支持5条规则。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-4.webp)
+![](/img/eovsesa-eovsesa-4.webp)
 
 ### EdgeOne 的优势
 
 反观EdgeOne，它没有照抄Cloudflare，而是自己写了一套规则引擎，所有类型的规则都在一处地方配置，并且可以互相联动。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-5.webp)
+![](/img/eovsesa-eovsesa-5.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-6.webp)
+![](/img/eovsesa-eovsesa-6.webp)
 
 甚至你还可以对不合法请求在L7给空。（不推荐，规则引擎的假拦截也算正常请求）
-![](https://raw-posts.2x.nz/img/eovsesa-1f63e461bfa538605c7734042edd68f6.webp)
+![](/img/eovsesa-1f63e461bfa538605c7734042edd68f6.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-7.webp)
+![](/img/eovsesa-eovsesa-7.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-8.webp)
+![](/img/eovsesa-eovsesa-8.webp)
 
 #### 优先级陷阱
 
 并且要注意一点，虽然你可以在规则引擎里伪装一个WAF拦截，但是在EdgeOne中，流量会先经由规则引擎，再经过WAF，也就是如果你在WAF写了个非CN拦截，然后在规则引擎里写个非CN给空，海外IP访问只能看到空响应，看不到拦截页面，流量也照记（难绷）。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-9.webp)
+![](/img/eovsesa-eovsesa-9.webp)
 
 ### ESA 的策略
 
 而ESA这边，WAF的优先级始终是最高的，流量会先被WAF网关审查，通过后才应用规则，但是免费套餐不支持在WAF中设置地域级别的拦截（难绷）。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-10.webp)
+![](/img/eovsesa-eovsesa-10.webp)
 
 #### 曲线救国方案
 
 但是有个曲线救国的方案，就是先写个规则将流量全拦截，然后再写个白名单规则，将可信流量绕过该规则。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-11.webp)
+![](/img/eovsesa-eovsesa-11.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-12.webp)
+![](/img/eovsesa-eovsesa-12.webp)
 
 ## 回源配置
 
 再接着就是因为ESA照抄Cloudflare，所以创建加速站点的时候默认是HTTP走80，HTTPS走443回源，如果你要更改回源的端口，还需要浪费一个回源规则。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-13.webp)
+![](/img/eovsesa-eovsesa-13.webp)
 
 而EdgeOne可以在创建站点的时候直接就设置回源端口以及回源Host。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-14.webp)
+![](/img/eovsesa-eovsesa-14.webp)
 
 ## SSL 证书签发
 
 再到SSL签发，首先两家都支持默认的CNAME签发，也就是你把域名解析到我这，我帮你签SSL，但是EdgeOne的CNAME签发是每一个站点单独签一次。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-15.webp)
+![](/img/eovsesa-eovsesa-15.webp)
 
 而ESA是统一管理，你给我个DCV，我直接给你签一个泛域名，之后你就用去吧。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-16.webp)
+![](/img/eovsesa-eovsesa-16.webp)
 
 ## 规则隔离与互通
 
@@ -102,13 +102,13 @@ ESA的很多东西直接是照抄Cloudflare的，比如：
 
 但是！阉割是什么意思，为什么CDN可以写地域判断，Page就只能写IP？
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-17.webp)
+![](/img/eovsesa-eovsesa-17.webp)
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-18.webp)
+![](/img/eovsesa-eovsesa-18.webp)
 
 那么也没有什么让Page吃上CDN规则的方法呢？有的，兄弟有的（但是这样会在控制台看到双倍流量，如果你的Page纯静态，可以写个全缓存缓解一下）。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-19.webp)
+![](/img/eovsesa-eovsesa-19.webp)
 
 ## Page 服务对比
 
@@ -116,11 +116,11 @@ ESA的很多东西直接是照抄Cloudflare的，比如：
 
 EdgeOne的Page你可以直接看作是Cloudflare Page的本地化，甚至突破了核心代码，直接可以在Page里面跑Nodejs服务，要知道，Cloudflare Page也只有一个V8环境（Umami也可以！SSR函数小于等于128MB即可）并且可以托管海量大和多的文件。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-20.webp)
+![](/img/eovsesa-eovsesa-20.webp)
 
 而ESA Page非常像云函数FC改过来的，虽然也支持函数吧，但没有完整的Nodejs环境，甚至最近WebSocket也被砍了（关闭后就打不开了），并且托管的文件数以及单文件大小如下限制。
 
-![](https://raw-posts.2x.nz/img/eovsesa-eovsesa-21.webp)
+![](/img/eovsesa-eovsesa-21.webp)
 
 ## 速度与限速
 

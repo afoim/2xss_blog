@@ -2,7 +2,7 @@
 title: 整个博客非得塞到网站源码吗？不！纯前端的前后端分离全部搞定！
 description: 很久很久以前，我的网站一直都是把博文和图片资源当做源码，封装在整个源码仓库里的。这会导致仅仅更新一行代码，CI/CD
   都需要重新拉取整个仓库，包括高达 5 个 G 的博客图片。  那么，我们为什么不能跟它分离开来？来，这期教你掌控分离的权能！
-coverImage: https://raw-posts.2x.nz/img/cover.png
+coverImage: /img/cover.png
 date: "2026-07-17"
 draft: false
 pin: false
@@ -17,17 +17,17 @@ tags:
 
 众所周知，几乎所有人做网站都是从博客开始做起的。那么在博客写到令人厌烦之后，我们肯定需要为网站拓展一些其他功能，比如一些在线小工具或者其他增值服务。
 
-![image.png](https://raw-posts.2x.nz/img/image-5.png)
+![image.png](/img/image-5.png)
 
 不过这些都不重要。一旦你决定将网站从一个博客站转向为一个纯正宗的个人网站，你就会发现源码愈发臃肿。每一次修改代码，CI/CD 流水线都需要把博客和图片资源完整地拉取一遍。
 
-![image.png](https://raw-posts.2x.nz/img/image-6.png)
+![image.png](/img/image-6.png)
 
 在我的网站上，尤其是我已经写了 100 多篇博文，包括 1000 多张图片，整个资源加起来高达 300 MB。也就是说，每一次部署，CI/CD 流水线都沉在了来回 300 MB 的流量传输中。这不仅浪费了 CDN 的资源，也大大降低了开发、部署以及测试的速度。
 
-![image.png](https://raw-posts.2x.nz/img/image-7.png)
+![image.png](/img/image-7.png)
 
-![image.png](https://raw-posts.2x.nz/img/image-8.png)
+![image.png](/img/image-8.png)
 
 那么，我们为什么不能将博客和其他业务分离开来呢？
 
@@ -35,9 +35,9 @@ tags:
 
 一开始，我尝试的是各大厂都热衷于的“硬分离”。这边简单解释一下什么叫硬分离：比如说你在做博客站，后续想做一些其他的功能，又不想把这些功能一股脑全部塞到博客的站点上面，那么我们就可以来分域名做硬分割。
 
-![image.png](https://raw-posts.2x.nz/img/image-9.png)
+![image.png](/img/image-9.png)
 
-![image.png](https://raw-posts.2x.nz/img/image-10.png)
+![image.png](/img/image-10.png)
 
 简单来说，就是博客站叫 blog.2x.nz，如果你还有论坛，那就叫 from.2x.nz，如果你还有其他服务，比如一些在线工具，就叫 tools.2x.nz。
 
@@ -69,7 +69,7 @@ tags:
 
 诚然，我们首先需要一个前端。前端肯定是用户访问越简单越好，所以就用短域名。那么前端就定好了，用 `2x.nz` 
 
-![image.png](https://raw-posts.2x.nz/img/image-11.png)
+![image.png](/img/image-11.png)
 
 那么后端呢？由于用户几乎是不可知的，只有少数开发者会打开 F12 去抓，所以我们后端就来一个很有风味的 API 地址，叫做 `raw-posts.2x.nz`。
 
@@ -81,11 +81,11 @@ tags:
 
 在经常使用各类静态托管服务时，我意识到我们完全可以去写一个预构建脚本，将所有的文章做成一个索引，放在 `/posts.json`，然后让前端去抓这个索引，最后再让它触及原文章。
 
-![image.png](https://raw-posts.2x.nz/img/image-14.png)
+![image.png](/img/image-14.png)
 
 那么这个预构建由谁来做呢？就请出我们的 Cloudflare Worker 或者其他的，你开心就好。比如 EdgeOne Pages（现在叫 Maker 了），或者 Vercel、Netlify、Surge、Render，随你便。
 
-![image.png](https://raw-posts.2x.nz/img/image-13.png)
+![image.png](/img/image-13.png)
 
 那么思路一旦清晰了，实现起来就非常的简单。
 
@@ -95,13 +95,13 @@ tags:
 
 但这种方式也会造成一些问题，最显然的就是由于你的前端不是预渲染好文章展示出来的，对于一些搜索引擎的 SEO 可能不太友好，因为它们需要通过 JavaScript 去解析你网站上的脚本，来动态渲染出文章。当然，在 2026 年，大部分搜索引擎都有执行 JavaScript 的能力。
 
-![image.png](https://raw-posts.2x.nz/img/image-15.png)
+![image.png](/img/image-15.png)
 
 最后就是 RSS 了，这是最头疼、最终也解决的一个问题。
 
 到 2026 年，大家阅读博客一般都不会去每个博客主自己托管的网站，而是通过 [https://folo.is](https://folo.is) ，或者各大第三方的 RSS 阅读器，去读取每个博客主的订阅源（也就是 /rss.xml），然后在一个统一的地方去看。
 
-![image.png](https://raw-posts.2x.nz/img/image-16.png)
+![image.png](/img/image-16.png)
 
 这样的好处是：
 
@@ -121,11 +121,11 @@ tags:
 
 不过，这并不是不能解决。依旧是我们伟大的 Cloudflare 大人，它给了我们一个非常好的解决方案。还记得我们前面说的吗？我使用了 Cloudflare Worker 去预构建我们文章的索引，以及处理 Markdown 的提供。Cloudflare Worker 有一个非常牛逼的功能叫做 Worker 路由。它允许将另一个项目路由到我们的项目。简单来说，就是一个域名，但是不同路径实际上访问的是两个项目。
 
-![image.png](https://raw-posts.2x.nz/img/image-17.png)
+![image.png](/img/image-17.png)
 
 再简单一点来说，它可以做到用户访问 `2x.nz/rss.xml` 就等于访问 `raw-posts.2x.nz/rss.xml` 
 
-![image.png](https://raw-posts.2x.nz/img/image-18.png)
+![image.png](/img/image-18.png)
 
 这个时候，我们只需要再加一条规则，让我们的渲染器在渲染 RSS 时把链接全部改成我们前端的地址，也就是 [2x.nz](http://2x.nz)，就可以做到完全无感的浏览。用户这个时候如果想要看我的网站，跳转的也是正确的前端页面。
 
@@ -141,7 +141,7 @@ tags:
 
 解决方案有很多种，我们现在说最简单的一种，那就是预构建（也就是当前用的这种方式）：在前端 SSG 生成页面的时候，先查一下后端到底有多少文章，然后预生成好这些 HTML 壳子，这样访问就不会 404。
 
-![image.png](https://raw-posts.2x.nz/img/image-23.png)
+![image.png](/img/image-23.png)
 
 不过这个方案的弊端也非常明显：在后端更新了文章之后，我还是得把前端重新部署一遍。这又回到了原来的那个样子，对吧？所以第二种方案是这样的：由于我们是 SSG 静态导出，没办法让服务端去解释这个 path name，所以我们可以试着曲线救国，使用各大静态部署服务的 404 fallback。这是什么意思呢？就是将所有的路径、所有的请求全部路由到 404，在 404 里面包含整个网站的所有逻辑，也包含解析 path name 并渲染文章。但这会导致两个问题：
 
@@ -161,7 +161,7 @@ tags:
 
 那么我们想到一个最好的办法，就是使用 giscus 自带的新的锚定方式，叫做 ogtitle。这是一个被定义在每篇文章的 HTML 中的 head 里面的 Meta 元数据。它可以定义任何内容，然后 giscus 根据定义的元数据来锚定每篇文章的评论区。那么这个时候，我们就可以将 ogtitle 设为原来的 pathname 的值。这样的话，新文章在浏览器的地址栏看起来是 query 查询，用户访问没有任何问题；同时，giscus 评论区也会按照之前的 pathname 的规则去锚定它。
 
-![image.png](https://raw-posts.2x.nz/img/image-21.png)
+![image.png](/img/image-21.png)
 
 #### 旧路径兼容重定向
 

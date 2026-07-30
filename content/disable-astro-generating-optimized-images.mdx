@@ -3,7 +3,7 @@ title: 禁用Astro跟弱智一般的静态构建图像优化
 date: '2025-09-09'
 description: 折腾了整整一天，终于解决了这傻逼Astro对于静态构建自作聪明的图片优化了，这不仅能提高构建速度，还可以减少无谓的CPU资源消耗，更环保，也更符合Unix哲学
 draft: false
-coverImage: https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-2025-09-10-06-21-20-26ca667ff5c7024c12d7a8254f483b27.webp
+coverImage: /img/disable-astro-generating-optimized-images-2025-09-10-06-21-20-26ca667ff5c7024c12d7a8254f483b27.webp
 ---
 
 
@@ -17,7 +17,7 @@ coverImage: https://raw-posts.2x.nz/img/disable-astro-generating-optimized-image
 
 *为什么要浪费这么多的时间来进行±10kb左右的图片压缩呢？*
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-2025-09-10-06-21-20-26ca667ff5c7024c12d7a8254f483b27.webp)
+![](/img/disable-astro-generating-optimized-images-2025-09-10-06-21-20-26ca667ff5c7024c12d7a8254f483b27.webp)
 
 ## 如何让Astro不”优化“图片？
 
@@ -51,7 +51,7 @@ coverImage: https://raw-posts.2x.nz/img/disable-astro-generating-optimized-image
 
 *如果您了解如何在Astro的配置层面直接禁用图片优化，请联系我！我很乐意与您交流！*
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-2025-09-10-06-27-46-image.webp)
+![](/img/disable-astro-generating-optimized-images-2025-09-10-06-27-46-image.webp)
 
 ## 尝试直接更改Astro源码来禁用图片优化（成功）
 
@@ -176,12 +176,12 @@ index 3144f4c058b161b9e6eb3c8d891b743b34783653..0ba275b320204e154307c6aff75452e9
 
 任何情况下使用 `astro build` 都会跳过图片优化，Cloudflare Worker的构建时间从 3分钟下降到2分钟
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-2025-09-10-06-46-49-image.webp)
+![](/img/disable-astro-generating-optimized-images-2025-09-10-06-46-49-image.webp)
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-2025-09-10-06-47-01-image.webp)
+![](/img/disable-astro-generating-optimized-images-2025-09-10-06-47-01-image.webp)
 
 构建后的页面不再为全局webp，透传原始文件名、扩展名。但仍然保留了 `/_astro` 路径，依旧支持相对路径粘贴图片
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-d836b41fd85611972c2086a7064705bdb1b4ff7c.webp)
+![](/img/disable-astro-generating-optimized-images-d836b41fd85611972c2086a7064705bdb1b4ff7c.webp)
 
-![](https://raw-posts.2x.nz/img/disable-astro-generating-optimized-images-ff1314b1ab7d60bd9a49d6499db22cde23fb9f60.webp)
+![](/img/disable-astro-generating-optimized-images-ff1314b1ab7d60bd9a49d6499db22cde23fb9f60.webp)

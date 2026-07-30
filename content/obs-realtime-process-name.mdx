@@ -4,7 +4,7 @@ date: '2026-03-07'
 description: 通过持续监测当前前台进程和指定程序的窗口标题，并将结果写入 TXT 文件，就可以让 OBS 实时向观众展示你正在使用的软件或当前播放的内容。
 draft: false
 tags: []
-coverImage: https://raw-posts.2x.nz/img/obs-realtime-process-name-OBS-RT-PC.png
+coverImage: /img/obs-realtime-process-name-OBS-RT-PC.png
 ---
 ## 引言
 
@@ -34,11 +34,11 @@ coverImage: https://raw-posts.2x.nz/img/obs-realtime-process-name-OBS-RT-PC.png
 
 只要让 OBS 持续读取一个 TXT 文件，再写一个小程序不断更新这个 TXT，不就可以了吗？
 
-![](https://raw-posts.2x.nz/img/obs-realtime-process-name-obs-realtime-process-name.png)
+![](/img/obs-realtime-process-name-obs-realtime-process-name.png)
 
 这个思路完全可行。实测下来，OBS 会每隔几秒重新读取一次 TXT 内容。虽然它不是即时 Hook，而是简单轮询，但对于“当前正在使用什么软件”这类信息来说，已经完全够用了。
 
-![](https://raw-posts.2x.nz/img/obs-realtime-process-name-obs64_ZV5MPVYEXj.gif)
+![](/img/obs-realtime-process-name-obs64_ZV5MPVYEXj.gif)
 
 不过，只做实时进程显示，其实只解决了 **“我当前正在用什么软件”** 这个问题。
 
@@ -46,7 +46,7 @@ coverImage: https://raw-posts.2x.nz/img/obs-realtime-process-name-OBS-RT-PC.png
 
 所以我又补了一个功能：支持监测指定的 **EXE**，并实时读取这个进程的窗口标题变化。一般来说，不少音乐播放器都会把当前播放曲目写进窗口标题里。
 
-![](https://raw-posts.2x.nz/img/obs-realtime-process-name-obs-realtime-process-name-2.png)
+![](/img/obs-realtime-process-name-obs-realtime-process-name-2.png)
 
 那如果中途我把音乐软件关掉了怎么办？
 
@@ -58,6 +58,6 @@ coverImage: https://raw-posts.2x.nz/img/obs-realtime-process-name-OBS-RT-PC.png
 
 [afoim/process_watch2txt](https://github.com/afoim/process_watch2txt)
 
-![](https://raw-posts.2x.nz/img/obs-realtime-process-name-WindowsTerminal_wV1C4TbD15.gif)
+![](/img/obs-realtime-process-name-WindowsTerminal_wV1C4TbD15.gif)
 
-![](https://raw-posts.2x.nz/img/obs-realtime-process-name-livehime_vtq9relmFS.gif)
+![](/img/obs-realtime-process-name-livehime_vtq9relmFS.gif)

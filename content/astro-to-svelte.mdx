@@ -4,18 +4,18 @@ date: '2026-04-24'
 description: 自2024年以来，本站一直使用 Astro/Fuwari 来开发，但从该项目不再是一个纯粹的静态博客站之后，基于Astro的开发也越来越艰难。今天，我们来聊聊这次大更新吧！
 draft: false
 tags: []
-coverImage: https://raw-posts.2x.nz/img/astro-to-svelte-svelte.png
+coverImage: /img/astro-to-svelte-svelte.png
 ---
 ## 为什么要重构为纯Svelte？
 这实际上是个复杂的问题。在2024年选择Fuwari作为本站框架实际上只是一个巧合，当时并没有顾虑到后续开发的问题，我当时甚至是从 Hugo/PaperMod 这种明显比Astro高效的框架迁移过来的。当时选择Fuwari只有一个原因：**好看** 
 
 我们可以来简单看一看Fuwari Demo Site
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index.png)
+![](/img/astro-to-svelte-index.png)
 
 放眼望去，第一个感觉就是大。相比于传统的博客站，Fuwari的设计语言明显是更现代，更灵动的，因为Fuwari还采用了Swup来做SPA页切，这使得网站从一开始的进入，再到用户主动切换页面，都是非常丝滑流畅的
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-msedge_j3Hr8CjoVV.gif)
+![](/img/astro-to-svelte-msedge_j3Hr8CjoVV.gif)
 
 另外，由于它基于Astro SSG，这使得它的SEO也是非常棒的，所有页面都是静态的HTML，无需服务端介入，即可同时实现：**美观、SEO良好、快速** 的博客站
 
@@ -25,11 +25,11 @@ coverImage: https://raw-posts.2x.nz/img/astro-to-svelte-svelte.png
 
 如果说在博客上扔个课表还是一个方便自己的快捷方式，勉强算合理
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-1.png)
+![](/img/astro-to-svelte-index-1.png)
 
 那么在博客上扔一个 **论坛** 则是一个完全改变项目定位的做法，Astro SSG并不擅长处理全栈，所以便使用了 `@astrojs/svelte` 来实现这种重客户端交互的页面
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-2.png)
+![](/img/astro-to-svelte-index-2.png)
 
 但是做着做着便发现不对劲了。由于 Fuwari 使用 Swup 来操作页切，而经过我们长达2年的魔改，Astro 引以为傲的 island 我们根本没用，大部分页面都是采用的传统的监听器，页面上哪些是全局JS？哪些是只需要加载一次的JS？哪些又是持久化的JS？
 
@@ -55,21 +55,21 @@ coverImage: https://raw-posts.2x.nz/img/astro-to-svelte-svelte.png
 
 诸如此类的问题导致后续的开发虽然很爽，但是用户体验很烂，调研问卷有大多数反馈国内网络加载慢的问题。这就是因为没有SPA，所有页面都需要完整拉取HTML，由于我们的服务器在Cloudflare，尽管已经优选，但可能还是较慢。如果是SPA，只需拉取新的内容，并且也不会触发浏览器的重加载。不管是在实际资源加载还是用户体感都是更快的
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-Pasted-image-20260424182832.png)
+![](/img/astro-to-svelte-Pasted-image-20260424182832.png)
 
 然后，便是Astro臭名昭著的内建图片压缩，我曾经在 [禁用Astro跟弱智一般的静态构建图像优化 - 《二叉树树》官方网站](https://2x.nz/posts/disable-astro-generating-optimized-images/) 写过如何禁用它，因为它不仅将所有压缩压力都传递给了CICD，而且它的结果也不尽人意，有时候，甚至会反向压缩
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-5.png)
+![](/img/astro-to-svelte-index-5.png)
 
 如何禁用它呢？可以，但很诡异，要不你将图片放到 `/public` 目录，Astro就不会管他了，但是编辑器就不认图了。要不你就写一个补丁，在源码层面将Astro图片压缩的代码剔除（旧站就是这么做的）。总之，Astro就是强制爱，就是不管怎样都想看看你的图片，顺便用Shrap一压，*欸！一不小心压少了，压多了2kb*
 
 再接着，经过这几个月的超级周边功能开发，我们实现了一堆奇奇怪怪的功能
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-3.png)
+![](/img/astro-to-svelte-index-3.png)
 
 而这些功能无一例外都是 **Svelte** 。这更代表了整个项目已经被 Svelte 架空了，那么，不如贯彻到底，直接把Astro丢了吧？
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-4.png)
+![](/img/astro-to-svelte-index-4.png)
 
 ## 迁移！抉择架构！
 
@@ -152,7 +152,7 @@ coverImage: https://raw-posts.2x.nz/img/astro-to-svelte-svelte.png
 
 这样做的好处是不会出现一个文件夹存放着所有的图片，而且想找哪篇文章的图片就直接去对应文章的目录去找即可
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-11.png)
+![](/img/astro-to-svelte-index-11.png)
 
 最终，我们创建了一个脚本，它在 SvelteKit 构建成功后运行，目的就是将文章中所有已链接的相对路径本地图片通过 Sharp 全部转为 `.avif` （avif相比webp有更高的压缩率，现代浏览器已广泛支持）接着复制到构建产物文件夹中，最后批量改写构建产物文件夹中所有文章的相对图片路径，保证不404
 
@@ -160,19 +160,19 @@ coverImage: https://raw-posts.2x.nz/img/astro-to-svelte-svelte.png
 
 效果是立竿见影的。在旧站，一次全量的图片压缩需要几分钟
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-7.png)
+![](/img/astro-to-svelte-index-7.png)
 
 而新站，开启增量图片压缩后也仅需1分钟左右
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-8.png)
+![](/img/astro-to-svelte-index-8.png)
 
 再接下来，是重定向。由于SvelteKit并不像Astro一样支持直接在类似 `astro.config.mjs` 里配置静态重定向
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-9.png)
+![](/img/astro-to-svelte-index-9.png)
 
 不过这也是个好处，我们可以自己写一个Vite插件来创建静态重定向，并自定义重定向页面
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-10.png)
+![](/img/astro-to-svelte-index-10.png)
 
 除此之外，还有一个坑。对于友链和赞助列表，需要使用预渲染，我们还需要自定义一个脚本来在构建时将json内容反序列化写入静态的HTML中
 
@@ -215,4 +215,4 @@ flowchart TD
 
 最后看一下图一乐的Lighthouse
 
-![](https://raw-posts.2x.nz/img/astro-to-svelte-index-12.png)
+![](/img/astro-to-svelte-index-12.png)

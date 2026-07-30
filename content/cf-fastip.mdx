@@ -3,7 +3,7 @@ title: 试试Cloudflare IP优选！让Cloudflare在国内再也不是减速器�
 date: '2026-01-10'
 description: 使用SaaS、Worker以及各种奇技淫巧来让你的网站解析的IP进行分流优选，提高网站可用性和速度
 draft: false
-coverImage: https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-11.webp
+coverImage: /img/cf-fastip-cf-fastip-11.webp
 ---
 ## 相关视频：
 - **全解**： [https://www.bilibili.com/video/BV1QpSoBqERj](https://www.bilibili.com/video/BV1QpSoBqERj)
@@ -18,11 +18,11 @@ coverImage: https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-11.webp
 > 所有优选一个域名即可，无需两个域名。如： `s.2x.nz` 和 `s-s.2x.nz` 即可完成优选
 ##### 未优选
 
-![QmZoinxZgAzu7Skh7BqsxmDQGU1sXtLLskJcyQuRAQNKww.webp](https://raw-posts.2x.nz/img/cf-fastip-098f9ee71ae62603022e542878673e19bdcaf196.webp)
+![QmZoinxZgAzu7Skh7BqsxmDQGU1sXtLLskJcyQuRAQNKww.webp](/img/cf-fastip-098f9ee71ae62603022e542878673e19bdcaf196.webp)
 
 ##### 已优选
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-11.webp)
+![](/img/cf-fastip-cf-fastip-11.webp)
 
 ---
 
@@ -92,7 +92,7 @@ Cloudflare Byoip（Bring Your Own IP），即如果用户自己拥有一个IP、
 
 > 我这里返回404是正常的，因为 r2.afo.im 直接连接到Cloudflare R2对象存储，直接访问就是404
 
-![](https://raw-posts.2x.nz/img/cf-fastip-838f685e-3913-4b21-995e-5ee149f4bffa.webp)
+![](/img/cf-fastip-838f685e-3913-4b21-995e-5ee149f4bffa.webp)
 
 #### 注意事项
 
@@ -114,11 +114,11 @@ Cloudflare Byoip（Bring Your Own IP），即如果用户自己拥有一个IP、
 
 接下来编写Worker路由，直接填写 `你的域名+ /*`
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip.png)
+![](/img/cf-fastip-cf-fastip.png)
 
 最后写一条DNS解析到想要的优选域名，完事！
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-1.png)
+![](/img/cf-fastip-cf-fastip-1.png)
 
 不需要折腾SaaS，不需要多域名，就是这么简单！
 
@@ -219,11 +219,11 @@ function getProxyPrefix(hostname) {
 
 创建路由：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-56752d54-26a5-46f1-a7d9-a782ad9874cb.webp)
+![](/img/cf-fastip-56752d54-26a5-46f1-a7d9-a782ad9874cb.webp)
 
 类似这样填写：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-d025398c-39e3-4bd7-8d8f-2ce06a45007d.webp)
+![](/img/cf-fastip-d025398c-39e3-4bd7-8d8f-2ce06a45007d.webp)
 
 最后写一条DNS解析 `CNAME gitea.afo.im --> 优选域名` 即可
 
@@ -233,19 +233,19 @@ function getProxyPrefix(hostname) {
 
 首先，你先得有个R2实例
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-4.png)
+![](/img/cf-fastip-cf-fastip-4.png)
 
 接着，你需要绑定一个自定义域
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-5.png)
+![](/img/cf-fastip-cf-fastip-5.png)
 
 接着，前往你的域名 - 规则 - Cloud Connector
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-6.png)
+![](/img/cf-fastip-cf-fastip-6.png)
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-7.png)
+![](/img/cf-fastip-cf-fastip-7.png)
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-8.png)
+![](/img/cf-fastip-cf-fastip-8.png)
 
 最后写一条解析指向优选域名 `fast-r2.2x.nz CNAME cf.090227.xyz`
 
@@ -259,15 +259,15 @@ Cloudflare SaaS是一个不需要你改变一个域名的NS服务器，就可以
 
 当一个域名被SaaS到一个已经在Cloudflare的域名后，它就完整受益所有Cloudflare服务。如我将 umami.acofork.com SaaS 到 2x.nz，我就可以在 2x.nz 里为 umami.acofork.com 写规则了：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-saas-1.webp)
+![](/img/cf-fastip-cf-saas-1.webp)
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-saas-2.webp)
+![](/img/cf-fastip-cf-saas-2.webp)
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-saas-3.webp)
+![](/img/cf-fastip-cf-saas-3.webp)
 
 Worker中的路由规则也适用：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-saas-4.webp)
+![](/img/cf-fastip-cf-saas-4.webp)
 
 #### SaaS优选步骤
 
@@ -283,7 +283,7 @@ Worker中的路由规则也适用：
 
 > [!WARNING]
 > Cloudflare最近将新接入的域名SSL默认设为了完全，记得将 SSL 改为灵活。
-> ![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-1.webp)
+> ![](/img/cf-fastip-cf-fastip-1.webp)
 
 ##### 准备工作
 
@@ -295,12 +295,12 @@ Worker中的路由规则也适用：
 
 单域名效果：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip.webp)
+![](/img/cf-fastip-cf-fastip.webp)
 
 ##### 具体步骤
 
 1. 首先新建一个DNS解析，指向你的**源站**，**开启cf代理**
-   ![QmfBKgDe77SpkUpjGdmsxqwU2UabvrDAw4c3bgFiWkZCna.webp](https://raw-posts.2x.nz/img/cf-fastip-c94c34ee262fb51fb5697226ae0df2d804bf76fe.webp)
+   ![QmfBKgDe77SpkUpjGdmsxqwU2UabvrDAw4c3bgFiWkZCna.webp](/img/cf-fastip-c94c34ee262fb51fb5697226ae0df2d804bf76fe.webp)
 
 2. 前往**辅助域名**的 SSL/TLS -> 自定义主机名。设置回退源为你刚才的DNS解析的域名：xlog.acofork.cn（推荐 **HTTP 验证**）
 
@@ -308,16 +308,16 @@ Worker中的路由规则也适用：
    
    如果你想要创建多个优选也就这样添加，一个自定义主机名对应一个自定义源服务器。如果你将源服务器设为默认，则源服务器是回退源指定的服务器，即 `xlog.acofork.cn`
    
-   ![QmRYrwjeDMDQCj8G9RYkpjC3X4vpwE77wpNpbqKURwBber.webp](https://raw-posts.2x.nz/img/cf-fastip-f6170f009c43f7c6bee4c2d29e2db7498fa1d0dc.webp)
+   ![QmRYrwjeDMDQCj8G9RYkpjC3X4vpwE77wpNpbqKURwBber.webp](/img/cf-fastip-f6170f009c43f7c6bee4c2d29e2db7498fa1d0dc.webp)
 
 4. 继续在你的辅助域名添加一条解析。CNAME到优选节点：如cloudflare.182682.xyz，**不开启cf代理**
-   ![QmNwkMqDEkCGMu5jsgE6fj6qpupiqMrqqQtWeAmAJNJbC4.webp](https://raw-posts.2x.nz/img/cf-fastip-4f9f727b0490e0b33d360a2363c1026003060b29.webp)
+   ![QmNwkMqDEkCGMu5jsgE6fj6qpupiqMrqqQtWeAmAJNJbC4.webp](/img/cf-fastip-4f9f727b0490e0b33d360a2363c1026003060b29.webp)
 
 5. 最后在你的主力域名添加解析。域名为之前在辅助域名的自定义主机名（onani.cn），目标为刚才的cdn.acofork.cn，**不开启cf代理**
-   ![QmeK3AZghae4J4LcJdbPMxBcmoNEeF3hXNBmtJaDki8HYt.webp](https://raw-posts.2x.nz/img/cf-fastip-6f51cb2a42140a9bf364f88a5715291be616a254.webp)
+   ![QmeK3AZghae4J4LcJdbPMxBcmoNEeF3hXNBmtJaDki8HYt.webp](/img/cf-fastip-6f51cb2a42140a9bf364f88a5715291be616a254.webp)
 
 6. 优选完毕，确保优选有效后尝试访问
-   ![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-10.webp)
+   ![](/img/cf-fastip-cf-fastip-10.webp)
 
 7. （可选）你也可以将cdn子域的NS服务器更改为阿里云\华为云\腾讯云云解析做线路分流解析
 
@@ -335,22 +335,22 @@ Worker中的路由规则也适用：
 
 1. 在Workers中添加路由，然后直接将你的路由域名从指向`xxx.worker.dev`改为优选域名即可
 2. 如果是外域，SaaS后再添加路由即可，就像：
-   ![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-12.webp)
+   ![](/img/cf-fastip-cf-fastip-12.webp)
 
-   ![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-13.webp)
+   ![](/img/cf-fastip-cf-fastip-13.webp)
 
 ## 针对于Cloudflare Tunnel（ZeroTrust）
 
 请先参照 [传统SaaS优选](#传统saas优选) 设置完毕，源站即为 Cloudflare Tunnel。正常做完SaaS接入即可：
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-3.webp)
+![](/img/cf-fastip-cf-fastip-3.webp)
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-2.webp)
+![](/img/cf-fastip-cf-fastip-2.webp)
 
 
 接下来我们需要让 **最终访问的域名** 打到 Cloudflare Tunnel 的流量正确路由，否则访问时主机名不在Tunnel中，会触发 **catch: all** 规则，总之就是没法访问。再创建一个Tunnel规则，域名为 **你最终访问的域名** ，源站指定和刚才的一致即可。
 
-![](https://raw-posts.2x.nz/img/cf-fastip-cf-fastip-3.png)
+![](/img/cf-fastip-cf-fastip-3.png)
 
 最后写一条 `umami.2x.nz` CNAME **你自己的优选域名** 的DNS记录即可
 

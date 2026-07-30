@@ -1,7 +1,7 @@
 ---
 title: 手把手教你跑一个二次元AI老婆！另附自然语言生图教程！
 description: 极！其！简！单！傻！子！都！会！本期将手把手教你从软件安装，到模型配置再到出图，百分百画出惊艳的图片！
-coverImage: https://raw-posts.2x.nz/img/ai-wife-index.png
+coverImage: /img/ai-wife-index.png
 date: "2026-04-26"
 draft: false
 pin: false
@@ -14,9 +14,9 @@ pin: false
 
 在纯小白的情况下，你可以跑出类似下面的图！（跑不出来你打死我！）
 
-![2025-05-13-11-59-50-ComfyUI_00016_.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-11-59-50-ComfyUI_00016_.webp)
+![2025-05-13-11-59-50-ComfyUI_00016_.webp](/img/ai-wife-2025-05-13-11-59-50-ComfyUI_00016_.webp)
 
-![2025-05-13-12-00-37-ComfyUI_00011_.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-00-37-ComfyUI_00011_.webp)
+![2025-05-13-12-00-37-ComfyUI_00011_.webp](/img/ai-wife-2025-05-13-12-00-37-ComfyUI_00011_.webp)
 
 ## 简单的思维风暴
 
@@ -39,11 +39,11 @@ pin: false
 
 前往 [ComfyUI | 用AI生成视频、图像、音频](https://www.comfy.org/zh-cn/) 下载并安装，记得打开魔法或在设置中更改镜像源
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife.png)
+![](/img/ai-wife-ai-wife.png)
 
 点击右下角的开始运行，先让他进行初始化，直到它自动打开你的浏览器并且可以正常进入ComfyUI的界面
 
-![2025-05-13-12-06-57-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-06-57-image.webp)
+![2025-05-13-12-06-57-image.webp](/img/ai-wife-2025-05-13-12-06-57-image.webp)
 
 ### 下载基底模型
 
@@ -53,7 +53,7 @@ pin: false
 
 点击下载即可
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-1.png)
+![](/img/ai-wife-index-1.png)
 
 #### 如果你需要下载LoRA
 
@@ -61,13 +61,13 @@ pin: false
 
 然后前往 [https://civitai.com/](https://civitai.com/) 进行搜索，选择你喜欢的LoRA
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-1.png)
+![](/img/ai-wife-ai-wife-1.png)
 
 在详情页你可以看到该LoRA所需要的基底模型。有些时候模型的简介也会写
 
 下面的 **Trigger Words** 是推荐的 **正向提示词** 一般来说仅导入LoRA不写专有提示词也会有一定的效果
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-2.png)
+![](/img/ai-wife-ai-wife-2.png)
 
 ### 放置模型
 
@@ -79,7 +79,7 @@ pin: false
 - 将基底模型（类似 `waiIllustriousSDXL_v160.safetensors`）放入 `checkpoints` 文件夹
 - 将LoRA模型放入 `loras` 文件夹
 
-![](https://raw-posts.2x.nz/img/ai-wife-Pasted-image-20260426144044.png)
+![](/img/ai-wife-Pasted-image-20260426144044.png)
 
 ### 启动！开始画！
 
@@ -93,29 +93,29 @@ pin: false
 
 下载之后，点击左上角的ComfyUI图标，打开这个工作流
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-3.png)
+![](/img/ai-wife-ai-wife-3.png)
 
 接下来，你应该已经有了这些节点
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-4.png)
+![](/img/ai-wife-ai-wife-4.png)
 
 #### 加载模型
 
 这里加载基底模型，刷新ComfyUI后你应该可以在 `Checkpoint加载器(简易)` 处看到你放置的所有模型，选择带有 `vPred...` 的就是V预测模型
 
-![2025-05-13-12-11-55-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-11-55-image.webp)
+![2025-05-13-12-11-55-image.webp](/img/ai-wife-2025-05-13-12-11-55-image.webp)
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-5.png)
+![](/img/ai-wife-ai-wife-5.png)
 
 这里加载LoRA（如果有）
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-6.png)
+![](/img/ai-wife-ai-wife-6.png)
 
 #### 填写提示词
 
 这里填写正/反向提示词，均为 **英文** ，如果不会写就去找其他AI描述你要画什么，然后让它返回给你用以AI绘图的prompt
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-7.png)
+![](/img/ai-wife-ai-wife-7.png)
 
 ##### 如何找到角色的提示词？
 
@@ -127,11 +127,11 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 搜索流萤的英文名 `firefly` 或者搜索 `star rail` 找到所有关于崩铁的角色
 
-![2025-05-13-12-15-16-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-15-16-image.webp)
+![2025-05-13-12-15-16-image.webp](/img/ai-wife-2025-05-13-12-15-16-image.webp)
 
 复制 `Prompt tags`，然后将其粘贴进链接了正面条件的CLIP文本编码器
 
-![2025-05-13-12-16-35-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-16-35-image.webp)
+![2025-05-13-12-16-35-image.webp](/img/ai-wife-2025-05-13-12-16-35-image.webp)
 
 这样角色预设就写好了！
 
@@ -154,7 +154,7 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 我们将其添加到ComfyUI，如下图：
 
-![2025-05-13-12-19-32-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-19-32-image.webp)
+![2025-05-13-12-19-32-image.webp](/img/ai-wife-2025-05-13-12-19-32-image.webp)
 
 > [!tip]
 > 如果你想要图片是不同的样子请在正面提示词和反面提示词添加（**必须为英文！不知道的用翻译或者问AI！**）。比如想要让足部放到焦点上并且裸足就添加**正面提示词**：`barefoot, feet in foreground` *如果你想要要纯自然语言生图就继续往下看！*
@@ -168,9 +168,9 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 - **最推荐：832x1216**
 - 其余：768x1344、896x1152、1024x1024、1152x896、1216x832、1344x768、1024x1536、1536x1024
 
-![2025-05-13-12-22-06-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-22-06-image.webp)
+![2025-05-13-12-22-06-image.webp](/img/ai-wife-2025-05-13-12-22-06-image.webp)
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-8.png)
+![](/img/ai-wife-ai-wife-8.png)
 
 > 建议前往模型发布页查看相关推荐分辨率信息
 
@@ -178,7 +178,7 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 这里控制生成参数（默认给你的就是一个不错的选择，如果不懂就不要动）
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-9.png)
+![](/img/ai-wife-ai-wife-9.png)
 
 - **种子**：每次都是一个随机值，如果固定下来且其他内容无变化则会始终出相同的图
 - **步数**：即AI需要重绘多少次，过低会导致鬼图、崩图，过高可能会导致元素冗杂、饱和度过高。**推荐：28-35**
@@ -190,38 +190,38 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 为了确保在生图的时候我们不无聊，可以前往设置开启实时预览功能，将 **实时预览** 改为 **自动** 即可
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-16.png)
+![](/img/ai-wife-ai-wife-16.png)
 
 #### 运行生成
 
 接下来点击右上角的运行，哦对了，你还可以编辑旁边的数字来一次性生成多张图片
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-10.png)
+![](/img/ai-wife-ai-wife-10.png)
 
 由于我们开启了实时预览，你可以看到模型每一步的绘画进度
 
-![](https://raw-posts.2x.nz/img/ai-wife-ComfyUI_UkQQZG4KkW.gif)
+![](/img/ai-wife-ComfyUI_UkQQZG4KkW.gif)
 
 点击右上角的资产，可以展开，查看大图
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-11.png)
+![](/img/ai-wife-ai-wife-11.png)
 
 所有生成的图片都可以在 `output` 文件夹看到
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-12.png)
+![](/img/ai-wife-ai-wife-12.png)
 
 如果你想画其他角色也只需要：**找LoRA，写推荐提示词，开跑！**
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-13.png)
+![](/img/ai-wife-ai-wife-13.png)
 
-![](https://raw-posts.2x.nz/img/ai-wife-ai-wife-14.png)
+![](/img/ai-wife-ai-wife-14.png)
 
 ## 常见问题与技巧
 
 - **AI生成的图片随机性较强**：每一次生成的图片都不太一样，多试试！
 - **避免生成涩图**：可以在负面提示词添加 `NSFW`，在正面提示词添加 `safe`
 - **参考资源**：更多WAI模型的技巧可以到Civitai模型页面的About查看
-![2025-05-13-12-30-55-image.webp](https://raw-posts.2x.nz/img/ai-wife-2025-05-13-12-30-55-image.webp)
+![2025-05-13-12-30-55-image.webp](/img/ai-wife-2025-05-13-12-30-55-image.webp)
 
 ## 新章：纯中文自然语言生图！
 
@@ -253,7 +253,7 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 其余概述参见仓库 README 由于文章具有时效性，如果有不懂的地方建议询问AI
 
-![](https://raw-posts.2x.nz/img/ai-wife-Screenshot_2026-04-26-14-53-03-67.jpg)
+![](/img/ai-wife-Screenshot_2026-04-26-14-53-03-67.jpg)
 
 ## 新版 2x.nz/draw 使用技巧
 
@@ -267,45 +267,45 @@ WAI模型的一大特色就是支持直接通过Danbooru里已有的角色直接
 
 你需要将 **工作流** 切换为 **无Lora** 避免角色Lora影响最终出图
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-2.png)
+![](/img/ai-wife-index-2.png)
 
 搜索（用英文）并选择一个你想跑的角色，复制角色tag
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-3.png)
+![](/img/ai-wife-index-3.png)
 
 填入正向提示词
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-4.png)
+![](/img/ai-wife-index-4.png)
 
 DanBooru的角色有非常多，所以在大多数情况下，我们不需要引入特定角色的Lora即可出图
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-15.png)
+![](/img/ai-wife-index-15.png)
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-5.png)
+![](/img/ai-wife-index-5.png)
 
 ##### 使用角色Lora
 
 直接选择你想跑的角色的工作流，正向提示词会自动添加，直接生图即可
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-6.png)
+![](/img/ai-wife-index-6.png)
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-8.png)
+![](/img/ai-wife-index-8.png)
 
 ##### 自定义绘画
 
 你可以使用 **英文Tag** 来控制图像生成，如在正向提示词添加 `school` ，则最终出图会有 **学校元素** （图例为校服）
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-7.png)
+![](/img/ai-wife-index-7.png)
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-9.png)
+![](/img/ai-wife-index-9.png)
 
 为了便于理解和使用，你可以在**自然语言描述** 文本框中输入 **中文的自然语言** ，随后选择 **转换** ，LLM将会把你的需求和原本的Prompt融合，最终在 **正/负面提示词** 输出合并后的 **英文Tag** 
 
 你也可以手动使用主流LLM来做这件事，如 Deepseek，ChatGPT，Gemini，Claude...
 
-![](https://raw-posts.2x.nz/img/ai-wife-msedge_hAkxNR1yEH.gif)
+![](/img/ai-wife-msedge_hAkxNR1yEH.gif)
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-11.png)
+![](/img/ai-wife-index-11.png)
 
 ##### 反向提示词
 
@@ -315,9 +315,9 @@ DanBooru的角色有非常多，所以在大多数情况下，我们不需要引
 
 实际上，画风是一个特殊的 **英文Tag** ，由 `by` 开头，所有画风可以前往 [Danbooru Artists' Styles in NoobAI-XL (NAI-XL)](https://www.downloadmost.com/NoobAI-XL/danbooru-artist/) 寻找。这也是 DanBooru 提供的，我们默认已经精选了一批画风。可以直接选择，选择后，将会在最终生图前，为正向Prompt注入画风Tag
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-12.png)
+![](/img/ai-wife-index-12.png)
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-13.png)
+![](/img/ai-wife-index-13.png)
 
 ##### 将这些串起来
 
@@ -335,7 +335,7 @@ Enjoy txt2img！
 
 *这是一个提示词工程。模型的上限取决于你的指示*
 
-![](https://raw-posts.2x.nz/img/ai-wife-index-17.png)
-![](https://raw-posts.2x.nz/img/ai-wife-index-14.png)
+![](/img/ai-wife-index-17.png)
+![](/img/ai-wife-index-14.png)
 
 Now, eojoy img2img!
