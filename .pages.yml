@@ -80,8 +80,13 @@ content:
 
       - name: body
         label: 正文
-        type: code
-        options:
-          # 用代码编辑器而不是富文本：正文里有 > [!CAUTION] 提示块、
-          # mermaid 代码块、iframe/video 原始 HTML，走富文本往返会被改坏
-          format: mdx
+        # 富文本编辑器，支持粘贴/拖拽图片（code 字段没有粘贴处理器）。
+        # 自带 WYSIWYG / 源码双模式切换。
+        #
+        # 注意：只有在 WYSIWYG 里实际编辑过正文，保存时才会重新序列化整篇
+        # markdown；只改 frontmatter 的话正文字节不变。以下 12 篇含裸 HTML
+        # 或 MDX import/export，往返可能丢内容，建议只在源码模式下编辑：
+        #   avatar / browser-run-js / cf-randompic / jkw / nat1-web
+        #   astrov3-redirects / gh-proxy / hack-lskypro / hugo
+        #   improve-dev-speed / svaf-next-seo / vercel-deny
+        type: rich-text
