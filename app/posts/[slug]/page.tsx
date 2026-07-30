@@ -84,7 +84,7 @@ export default async function BlogPost({ params }: PageProps) {
       </div>
 
       <div className="space-y-4 border-b border-border relative z-10">
-        <div className="max-w-7xl mx-auto flex flex-col gap-6 p-6">
+        <div className="max-w-7xl mx-auto flex flex-col gap-6 py-6 px-0 md:px-6">
           <div className="flex flex-wrap items-center gap-3 gap-y-5 text-sm text-muted-foreground">
             <Button variant="outline" asChild className="h-6 w-6">
               <Link href="/">
@@ -120,7 +120,7 @@ export default async function BlogPost({ params }: PageProps) {
           )}
         </div>
       </div>
-      <div className="flex divide-x divide-border relative max-w-7xl mx-auto px-4 md:px-0 z-10">
+      <div className="flex divide-x divide-border relative max-w-7xl mx-auto px-0 md:px-4 z-10">
         <div className="absolute max-w-7xl mx-auto left-1/2 -translate-x-1/2 w-[calc(100%-2rem)] lg:w-full h-full border-x border-border p-0 pointer-events-none" />
         <main className="w-full p-0 overflow-hidden">
           {cover && (
@@ -135,7 +135,7 @@ export default async function BlogPost({ params }: PageProps) {
               />
             </div>
           )}
-          <div className="p-6 lg:p-10">
+          <div className="py-6 px-0 md:px-6 lg:p-10">
             {/*
               prose-code:* 只影响行内代码 —— 代码块外层的 <figure> 带 not-prose，
               prose 的样式进不去。去掉 typography 默认给行内代码加的反引号伪元素，
@@ -159,7 +159,7 @@ export default async function BlogPost({ params }: PageProps) {
               </a>
             </div>
           </div>
-          <section className="border-t border-border p-6 lg:p-10">
+          <section className="border-t border-border py-6 px-0 md:px-6 lg:p-10">
             <h2 className="text-2xl font-medium mb-8">评论</h2>
             <Giscus />
           </section>
