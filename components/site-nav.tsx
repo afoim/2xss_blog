@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { siteConfig } from "@/lib/site";
 
 export function SiteNav() {
   return (
@@ -9,12 +10,16 @@ export function SiteNav() {
         <div className="mr-4 flex">
           <Link
             href="/"
-            className="mr-6 flex items-center space-x-2 font-medium text-lg tracking-tighter h-8 w-8 rounded-md overflow-hidden"
+            aria-label="回到首页"
+            className="mr-6 flex size-8 items-center justify-center rounded-md overflow-hidden"
           >
+            {/* 图片与容器同尺寸，不再被容器裁切缩放 */}
             <img
-              src="https://q2.qlogo.cn/headimg_dl?dst_uin=2726730791&spec=140"
-              alt="二叉树树"
-              className="w-10 h-10 object-cover"
+              src={siteConfig.avatar}
+              alt={siteConfig.author}
+              width={32}
+              height={32}
+              className="size-full object-contain"
             />
           </Link>
         </div>

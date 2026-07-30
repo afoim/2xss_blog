@@ -2,9 +2,8 @@
 
 import React from "react";
 import { List } from "lucide-react";
-import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerBody, DrawerFooter } from "@/components/ui/drawer";
+import { Drawer, DrawerTrigger, DrawerContent, DrawerHeader, DrawerBody } from "@/components/ui/drawer";
 import { TableOfContents } from "@/components/table-of-contents";
-import { PromoContent } from "@/components/promo-content";
 
 export function MobileTableOfContents() {
   return (
@@ -15,16 +14,12 @@ export function MobileTableOfContents() {
 
       <DrawerContent className="lg:hidden">
         <DrawerHeader>
-          <h3 className="font-semibold">Table of Contents</h3>
+          <h3 className="font-semibold">目录</h3>
         </DrawerHeader>
 
         <DrawerBody>
           <TableOfContents />
         </DrawerBody>
-
-        <DrawerFooter>
-          <PromoContent variant="mobile" />
-        </DrawerFooter>
       </DrawerContent>
     </Drawer>
   );

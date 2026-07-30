@@ -3,6 +3,7 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import { ThemeProvider } from "@/components/theme-provider";
 import { metadataKeywords } from "./metadata";
+import { siteConfig } from "@/lib/site";
 import { SiteNav } from "@/components/site-nav";
 import Footer from "@/components/footer";
 import "@/app/globals.css";
@@ -21,6 +22,12 @@ export const metadata: Metadata = {
   keywords: metadataKeywords,
   authors: [{ name: "AcoFork", url: "https://blog.2x.nz" }],
   creator: "AcoFork",
+  // 站点图标用导航栏同一张头像
+  icons: {
+    icon: siteConfig.avatar,
+    shortcut: siteConfig.avatar,
+    apple: siteConfig.avatar,
+  },
   openGraph: {
     type: "website",
     locale: "zh_CN",

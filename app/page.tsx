@@ -2,17 +2,22 @@ import { docs, meta } from "@/.source";
 import { loader } from "fumadocs-core/source";
 import { createMDXSource } from "fumadocs-mdx";
 import { BlogCard } from "@/components/blog-card";
+import { getCover } from "@/lib/cover";
+import { isPublished } from "@/lib/posts";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 
 interface BlogData {
   title: string;
   description: string;
   date: string;
+  draft?: boolean;
   tags?: string[];
   featured?: boolean;
+  pin?: boolean;
   readTime?: string;
   author?: string;
   authorImage?: string;
+  coverImage?: string;
   thumbnail?: string;
 }
 
@@ -36,8 +41,14 @@ const formatDate = (date: Date): string => {
 };
 
 export default function HomePage() {
-  const allPages = blogSource.getPages() as BlogPage[];
+  const allPages = (blogSource.getPages() as BlogPage[]).filter((page) =>
+    isPublished(page.data)
+  );
+  // 置顶文章排最前，其余按日期倒序
   const sortedBlogs = allPages.sort((a, b) => {
+    if (!!a.data.pin !== !!b.data.pin) {
+      return a.data.pin ? -1 : 1;
+    }
     const dateA = new Date(a.data.date).getTime();
     const dateB = new Date(b.data.date).getTime();
     return dateB - dateA;
@@ -80,7 +91,8 @@ export default function HomePage() {
                 title={blog.data.title}
                 description={blog.data.description}
                 date={formattedDate}
-                thumbnail={blog.data.thumbnail}
+                cover={getCover(blog.data)}
+                pinned={blog.data.pin}
                 showRightBorder={sortedBlogs.length < 3}
               />
             );

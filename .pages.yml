@@ -1,0 +1,84 @@
+# Pages CMS 配置 —— https://pagescms.org/docs/
+#
+# 用法：到 https://app.pagescms.org/ 登录 GitHub，连接 afoim/2xss_blog，
+# 之后在浏览器里就能新建/编辑文章，保存即 commit 到 main，CI 自动构建部署。
+#
+# ⚠ 重要：Pages CMS 保存时只会写回下面 fields 里声明过的字段，
+#   frontmatter 中未声明的键会被静默丢弃。新增 frontmatter 字段时，
+#   记得同时改这里和 source.config.ts 的 zod schema。
+
+media:
+  # 站内图片上传目录（public/ 下的内容会被原样发布到站点根）
+  input: public/uploads
+  output: /uploads
+  categories: [image, video]
+  # 上传时清理文件名，避免中文/空格进 URL
+  rename: safe
+
+content:
+  - name: posts
+    label: 文章
+    type: collection
+    path: content
+    format: yaml-frontmatter
+    filename:
+      # 文件名就是文章 URL（/posts/<文件名>），标题是中文没法自动转 slug，
+      # 所以这里始终把文件名暴露成可编辑字段，手动填英文 slug。
+      template: "{primary}.mdx"
+      field: true
+    view:
+      fields: [title, date, draft, pin]
+      primary: title
+      sort: [date, title]
+      search: [title, description, tags]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+
+      - name: description
+        label: 摘要
+        type: text
+        description: 显示在首页卡片上，同时用作搜索引擎和社交分享的描述
+        required: true
+
+      - name: date
+        label: 发布日期
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+
+      - name: coverImage
+        label: 封面图
+        type: string
+        description: 图床完整链接，如 https://raw-posts.2x.nz/img/xxx.webp ；留空则首页卡片显示渐变占位块
+
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: false
+        description: 勾选后不会被构建，线上无法访问
+
+      - name: pin
+        label: 置顶
+        type: boolean
+        default: false
+        description: 置顶到首页第一位，卡片上会显示「置顶」徽章
+
+      - name: body
+        label: 正文
+        type: code
+        options:
+          # 用代码编辑器而不是富文本：正文里有 > [!CAUTION] 提示块、
+          # mermaid 代码块、iframe/video 原始 HTML，走富文本往返会被改坏
+          format: mdx

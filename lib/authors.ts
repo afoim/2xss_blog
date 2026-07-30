@@ -1,3 +1,5 @@
+import { siteConfig } from "@/lib/site";
+
 export interface Author {
   name: string;
   position: string;
@@ -5,15 +7,10 @@ export interface Author {
 }
 
 export const authors: Record<string, Author> = {
-  dillion: {
-    name: "Dillion Verma",
-    position: "Software Engineer",
-    avatar: "/authors/dillion.png",
-  },
-  arghya: {
-    name: "Arghya Das",
-    position: "Design System Engineer",
-    avatar: "/authors/arghya.png",
+  acofork: {
+    name: "二叉树树",
+    position: "全栈开发 / 运维",
+    avatar: siteConfig.avatar,
   },
 } as const;
 

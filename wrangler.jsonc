@@ -1,13 +1,10 @@
 {
-  "name": "af_blog",
+  "name": "2xss_blog",
   "compatibility_date": "2026-07-13",
   "account_id": "879bb5589ed7931a25942359acc50154",
   "assets": {
     "directory": "./out",
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
-  },
-  "routes": [
-    { "pattern": "blog.2x.nz/*", "zone_name": "2x.nz" }
-  ]
+  }
 }

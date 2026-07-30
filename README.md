@@ -29,34 +29,62 @@ pnpm dev
 pnpm build
 ```
 
-## ✍️ Adding Blog Posts
+## ✍️ 写文章
 
-Create a new MDX file in `blog/content/` with format `your-post-title.mdx`:
+### 方式一：在浏览器里写（Pages CMS）
+
+仓库根目录的 [`.pages.yml`](.pages.yml) 已配置好 [Pages CMS](https://pagescms.org/)：
+
+1. 打开 <https://app.pagescms.org/> 用 GitHub 账号登录
+2. 授权并连接 `afoim/2xss_blog` 仓库
+3. 进入「文章」集合，即可新建/编辑，保存直接 commit 到 `main`
+4. `.github/workflows/deploy.yml` 监听 `push: main`，保存后自动构建部署
+
+几个注意点：
+
+- **文件名要手填英文 slug**。文件名就是文章 URL（`/posts/<文件名>`），标题是中文没法自动转换，所以文件名在编辑器里是可编辑字段。改动已发布文章的文件名会改变它的 URL。
+- **正文用的是代码编辑器而非富文本**。因为文章里有 `> [!CAUTION]` 提示块、mermaid 代码块和 iframe/video 原始 HTML，走富文本往返会被改坏。
+- **新增 frontmatter 字段时必须同步改两处**：`.pages.yml` 的 `fields` 和 `source.config.ts` 的 zod schema。Pages CMS 保存时只写回 `.pages.yml` 里声明过的字段，未声明的键会被静默丢弃。
+
+### 方式二：本地新建文件
+
+在 `content/` 下新建 `your-post-slug.mdx`：
 
 ````mdx
 ---
-title: "Your Blog Post Title"
-description: "A brief description of your post"
-date: "2024-12-01"
-tags: ["React", "Next.js", "Tutorial"]
-featured: true
-readTime: "10 min read"
-author: "Your Name"
+title: 文章标题
+description: 一句话摘要，显示在首页卡片和社交分享里
+date: "2026-07-30"
+coverImage: https://raw-posts.2x.nz/img/xxx.webp
+tags: ["Cloudflare", "DevOps"]
+draft: false
+pin: false
 ---
 
-Your blog post content here...
+正文……
 
-## Markdown Support
+> [!CAUTION]
+> GitHub 风格的提示块会渲染成彩色 Callout，支持 note / tip / important / warning / caution
 
-You can use all standard Markdown features plus MDX components.
-
-```tsx
-// Code syntax highlighting works great!
+```ts
+// 代码块左上角显示语言，右上角有复制按钮
 export default function Component() {
   return <div>Hello World!</div>;
 }
 ```
 ````
+
+字段说明：
+
+| 字段 | 必填 | 说明 |
+| --- | --- | --- |
+| `title` | ✅ | 标题 |
+| `description` | ✅ | 摘要，同时用作 OG description |
+| `date` | ✅ | `YYYY-MM-DD` |
+| `coverImage` | | 封面图完整链接，留空则首页显示渐变占位块 |
+| `tags` | | 标签数组 |
+| `draft` | | `true` 则不参与构建，线上不可访问 |
+| `pin` | | `true` 则置顶到首页第一位 |
 
 ## 🎨 Customization
 

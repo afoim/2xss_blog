@@ -66,7 +66,7 @@ export function TagFilter({ tags, selectedTag, tagCounts }: TagFilterProps) {
 
       <DrawerContent className="md:hidden">
         <DrawerHeader>
-          <h3 className="font-semibold text-sm">Select Category</h3>
+          <h3 className="font-semibold text-sm">选择分类</h3>
         </DrawerHeader>
 
         <DrawerBody>

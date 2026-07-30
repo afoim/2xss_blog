@@ -3,14 +3,16 @@ import { docs, meta } from "@/.source";
 import { loader } from "fumadocs-core/source";
 import { createMDXSource } from "fumadocs-mdx";
 import Link from "next/link";
+import { getCover } from "@/lib/cover";
+import { isPublished } from "@/lib/posts";
 
 const blogSource = loader({
-  baseUrl: "/blog",
+  baseUrl: "/posts",
   source: createMDXSource(docs, meta),
 });
 
 const formatDate = (date: Date): string => {
-  return date.toLocaleDateString("en-US", {
+  return date.toLocaleDateString("zh-CN", {
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -21,11 +23,13 @@ interface BlogData {
   title: string;
   description: string;
   date: string;
+  draft?: boolean;
   tags?: string[];
   featured?: boolean;
   readTime?: string;
   author?: string;
   authorImage?: string;
+  coverImage?: string;
   thumbnail?: string;
 }
 
@@ -45,10 +49,10 @@ export function ReadMoreSection({
 }: ReadMoreSectionProps) {
   const allPages = blogSource.getPages() as BlogPage[];
 
-  const currentUrl = `/blog/${currentSlug.join("/")}`;
+  const currentUrl = `/posts/${currentSlug.join("/")}`;
 
   const otherPosts = allPages
-    .filter((page) => page.url !== currentUrl)
+    .filter((page) => page.url !== currentUrl && isPublished(page.data))
     .map((page) => {
       const tagOverlap = currentTags.filter((tag) =>
         page.data.tags?.includes(tag)
@@ -75,11 +79,12 @@ export function ReadMoreSection({
   return (
     <section className="border-t border-border p-0">
       <div className="p-6 lg:p-10">
-        <h2 className="text-2xl font-medium mb-8">Read more</h2>
+        <h2 className="text-2xl font-medium mb-8">相关阅读</h2>
 
         <div className="flex flex-col gap-8">
           {otherPosts.map((post) => {
             const formattedDate = formatDate(post.date);
+            const cover = getCover(post.data);
 
             return (
               <Link
@@ -87,11 +92,11 @@ export function ReadMoreSection({
                 href={post.url}
                 className="group grid grid-cols-1 lg:grid-cols-12 items-center gap-4 cursor-pointer"
               >
-                {post.data.thumbnail && (
+                {cover && (
                   <div className="flex-shrink-0 col-span-1 lg:col-span-4">
                     <div className="relative w-full h-full">
                       <img
-                        src={post.data.thumbnail}
+                        src={cover}
                         alt={post.data.title}
                         className="w-full h-full object-cover rounded-lg group-hover:opacity-80 transition-opacity"
                       />

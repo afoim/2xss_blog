@@ -64,7 +64,7 @@ export function CopyHeader({ level, children, className, ...props }: CopyHeaderP
                     className
                 )}
                 onClick={copyToClipboard}
-                title="Click to copy link to this section"
+                title="点击复制本节链接"
                 {...props}
             >
                 {children}

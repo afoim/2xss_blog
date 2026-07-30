@@ -3,9 +3,12 @@ import { docs, meta } from "@/.source";
 import { loader } from "fumadocs-core/source";
 import { createMDXSource } from "fumadocs-mdx";
 import { siteConfig } from "@/lib/site";
+import { getCover } from "@/lib/cover";
+
+const DEFAULT_AUTHOR = "AcoFork";
 
 const blogSource = loader({
-  baseUrl: "/blog",
+  baseUrl: "/posts",
   source: createMDXSource(docs, meta),
 });
 
@@ -19,8 +22,8 @@ export async function generateMetadata({
 
     if (!slug || slug.length === 0) {
       return {
-        title: "Blog Not Found",
-        description: "The requested blog post could not be found.",
+        title: "文章不存在",
+        description: "找不到你要访问的文章。",
       };
     }
 
@@ -28,13 +31,14 @@ export async function generateMetadata({
 
     if (!page) {
       return {
-        title: "Blog Not Found",
-        description: "The requested blog post could not be found.",
+        title: "文章不存在",
+        description: "找不到你要访问的文章。",
       };
     }
 
     const ogUrl = `${siteConfig.url}/posts/${slug}`;
-    const ogImage = `${ogUrl}/opengraph-image`;
+    // 静态导出（output: export）没有动态 OG 图路由，只有文章封面可用
+    const cover = getCover(page.data);
 
     return {
       title: page.data.title,
@@ -51,12 +55,12 @@ export async function generateMetadata({
       ],
       authors: [
         {
-          name: page.data.author || "Magic UI",
+          name: page.data.author || DEFAULT_AUTHOR,
           url: siteConfig.url,
         },
       ],
-      creator: page.data.author || "Magic UI",
-      publisher: "Magic UI",
+      creator: page.data.author || DEFAULT_AUTHOR,
+      publisher: siteConfig.name,
       robots: {
         index: true,
         follow: true,
@@ -74,25 +78,25 @@ export async function generateMetadata({
         type: "article",
         url: ogUrl,
         publishedTime: page.data.date,
-        authors: [page.data.author || "Magic UI"],
+        authors: [page.data.author || DEFAULT_AUTHOR],
         tags: page.data.tags,
-        images: [
-          {
-            url: page.data.thumbnail || ogImage,
-            width: 1200,
-            height: 630,
-            alt: page.data.title,
-          },
-        ],
+        ...(cover
+          ? {
+              images: [
+                {
+                  url: cover,
+                  alt: page.data.title,
+                },
+              ],
+            }
+          : {}),
         siteName: siteConfig.name,
       },
       twitter: {
-        card: "summary_large_image",
+        card: cover ? "summary_large_image" : "summary",
         title: page.data.title,
         description: page.data.description,
-        images: [page.data.thumbnail || ogImage],
-        creator: "@dillionverma",
-        site: "@dillionverma",
+        ...(cover ? { images: [cover] } : {}),
       },
       alternates: {
         canonical: ogUrl,
@@ -101,8 +105,8 @@ export async function generateMetadata({
   } catch (error) {
     console.error("Error generating metadata:", error);
     return {
-      title: "Blog Not Found",
-      description: "The requested blog post could not be found.",
+      title: "文章不存在",
+      description: "找不到你要访问的文章。",
     };
   }
 }
