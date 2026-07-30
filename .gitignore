@@ -1,5 +1,5 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
+.git
 # dependencies
 /node_modules
 /.pnp
@@ -25,6 +25,9 @@
 
 # production
 /build
+
+# fumadocs-mdx 生成的索引与构建产物，CI 中自动生成
+.source/
 
 # react-router framework mode 生成的类型
 /.react-router/
