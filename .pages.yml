@@ -2,8 +2,8 @@
 #
 # 用法：到 https://app.pagescms.org/ 登录 GitHub，连接 afoim/2xss_blog，
 # 之后在浏览器里就能新建/编辑文章。保存即 commit 到 edit 分支（默认分支），
-# 没有 CI 监听它；改完后点侧边栏的「部署到线上」把 edit 覆盖到 main，
-# 由此只触发一次构建部署。
+# 没有 CI 监听它；改完后点侧边栏的「部署到线上」，
+# GitHub Actions 会构建并把产物推到 main 分支，CDN 从 main 取用发布。
 #
 # ⚠ 重要：Pages CMS 保存时只会写回下面 fields 里声明过的字段，
 #   frontmatter 中未声明的键会被静默丢弃。新增 frontmatter 字段时，
@@ -103,5 +103,5 @@ actions:
     ref: edit
     confirm:
       title: 确认部署？
-      message: 将用 edit 分支强制覆盖 main 分支，触发构建部署。main 上的独有提交会被丢弃。
+      message: 将在 GitHub Actions 里构建当前 edit 分支，并把产物推送到 main 分支供 CDN 发布。约需数分钟。
       button: 部署

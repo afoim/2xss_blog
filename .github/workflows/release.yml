@@ -1,17 +1,18 @@
 name: Release
 
-# 发布：把 edit 分支强制覆盖到 main，让 main 的历史与 edit 完全一致。
+# 发布：在 GitHub Actions 里构建，把产物（out/）推到 main 分支。
 #
-# 日常写作（含 Pages CMS 每上传一张图片就产生的零碎提交）都落在 edit 分支，
-# 没有任何 CI 监听它。点一次本 workflow，main 才被更新，
-# 从而只触发一次构建部署 —— 一次 push 只产生一次 workflow run，
-# 不论它携带多少提交。
+# 分支职责：
+#   edit —— 源码 + 文章（默认分支）。日常写作、Pages CMS 的零碎提交都在这里，
+#           没有任何 CI 监听，随便提交。
+#   main —— 纯静态产物，仓库根目录即站点根目录，不含源码。
+#           静态 CDN（EdgeOne）直接取用发布，不需要在 CDN 侧构建。
 #
-# ⚠ 需要配置 RELEASE_TOKEN，否则下游构建不会被触发：
-#   GitHub 规定「用仓库自带的 GITHUB_TOKEN 推送不会创建新的 workflow run」，
-#   所以拿默认 token 推 main 时，监听 push: main 的构建 workflow 会静默不执行。
-#   解决办法：建一个有 contents:write 权限的细粒度 PAT，
-#   存为仓库 secret RELEASE_TOKEN。没配时 main 仍会被更新，但需手动触发构建。
+# CDN 侧需配置为：分支 main、构建命令留空、输出目录为根目录。
+#
+# 不再需要 RELEASE_TOKEN：那是为了让推送 main 能触发另一个 GitHub workflow，
+# 现在构建就在本 workflow 内完成，CDN 是靠 webhook 感知推送的，
+# 不受「GITHUB_TOKEN 推送不触发 workflow」这条限制影响。
 
 on:
   workflow_dispatch:
@@ -25,17 +26,54 @@ on:
         required: false
 
 jobs:
-  mirror:
+  build-and-publish:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: write
+
     steps:
       - uses: actions/checkout@v4
         with:
           ref: edit
-          # 浅克隆无法可靠地 push，取完整历史
+          # source.config.ts 里 lastModifiedTime: "git"，需要提交历史算更新时间
           fetch-depth: 0
-          token: ${{ secrets.RELEASE_TOKEN || github.token }}
 
-      - name: 用 edit 覆盖 main
-        run: git push --force origin HEAD:main
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      # build 脚本 = fumadocs-mdx && next build
+      # next.config.ts 里 output: "export"，产物落在 out/
+      - run: pnpm build
+
+      - name: 检查产物
+        run: |
+          test -f out/index.html || { echo "out/index.html 缺失，产物异常"; exit 1; }
+          echo "文件数: $(find out -type f | wc -l)"
+          echo "体积:   $(du -sh out | cut -f1)"
+
+      - name: 推送产物到 main
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd out
+          git init -q -b main
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q \
+            -m "build: ${GITHUB_SHA:0:7} 的构建产物" \
+            -m "源码提交: ${GITHUB_SHA}" \
+            -m "workflow: ${GITHUB_WORKFLOW} #${GITHUB_RUN_NUMBER}"
+          # 每次都是全新的单提交孤儿分支，强制覆盖；main 不保留历史产物
+          git push --force \
+            "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" \
+            HEAD:main
